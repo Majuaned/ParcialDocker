@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  node:
+    image: imagen-parcial
+    deploy:
+      replicas: 9
+    ports:
+      - "4000:4000"
+# docker stack deploy -c services.yml servicio-clima

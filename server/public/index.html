@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplicación de consulta de temperaturas</title>
+</head>
+
+<body>
+  <h1>Temperatura</h1>
+  <!-- ******************   FORMULARIO DE CARGA    ********************* -->
+  <form id="weather-form">
+    <input type="text" id="city" placeholder="Nombre de la ciudad" required>
+    <button type="submit">Obtener Temperatura</button>
+  </form>
+  
+  <div id="result"></div>
+
+  <script>
+    const formulario = document.getElementById('weather-form');
+    const cityInput = document.getElementById('city');
+    const resultDiv = document.getElementById('result');
+
+    formulario.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const cityName = cityInput.value;
+
+      try {
+        const response = await fetch(`/weather?city=${cityName}`);
+        // const response = await fetch(`/weather`);
+
+        const data = await response.json();
+        
+        resultDiv.innerText = `La temperatura en ${cityName} es ${data.temperature}°C.`;
+      } catch (error) {
+        resultDiv.innerText = 'No se pudo obtener la temperatura.';
+      }
+    });
+  </script>
+</body>
+
+</html>
